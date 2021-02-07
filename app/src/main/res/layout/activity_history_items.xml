@@ -32,10 +32,10 @@
                     <TextView
                         android:drawableEnd="@drawable/green_dot"
                         android:drawablePadding="2dp"
-                        android:id="@+id/name"
+                        android:id="@+id/shop_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Himanshu Bhai"
+                        android:text="Shop Name"
                         android:textStyle="bold"
                         android:textSize="20dp"
                         android:textColor="@color/black"
@@ -49,22 +49,22 @@
                         android:paddingLeft="5dp"
                         android:textSize="18dp"/>
                     <TextView
-                        android:id="@+id/barber_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hair Cut Only"
-                        android:paddingLeft="5dp"/>
-                    <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2-Feb-2021"
+                        android:text="date"
                         android:paddingLeft="5dp"/>
                     <TextView
                         android:id="@+id/time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:30 AM"
+                        android:text="tme"
+                        android:paddingLeft="5dp"/>
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description"
                         android:paddingLeft="5dp"/>
 
                 </LinearLayout>
@@ -95,12 +95,12 @@
                             android:textAllCaps="false"
                             android:layout_gravity="center"/>
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/call_me"
+                            android:id="@+id/cancel"
                             android:layout_width="match_parent"
                             android:padding="4dp"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/royal_blue"
-                            android:text="Call"
+                            android:backgroundTint="@color/red"
+                            android:text="Cancel"
                             android:gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"

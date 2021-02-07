@@ -7,8 +7,7 @@ import android.os.Bundle;
 
 import barber.user.mybarber.Fragments.HistoryFragment;
 import barber.user.mybarber.Fragments.ProfileFragment;
-import barber.user.mybarber.Fragments.RequestFragment;
-import me.ibrahimsn.lib.OnItemReselectedListener;
+import barber.user.mybarber.Fragments.ShopFragment;
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
@@ -19,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomBar=findViewById(R.id.bottomBar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RequestFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShopFragment()).commit();
         bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public boolean onItemSelect(int i) {
                 Fragment fragment=null;
                 switch (i){
                     case 0:
-                        fragment=new RequestFragment();
+                        fragment=new ShopFragment();
                         break;
                     case 1:
                         fragment=new HistoryFragment();
