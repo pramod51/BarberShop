@@ -50,8 +50,4 @@ public class ShopItems {
     public void setAddress(String address) {
         this.address = address;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
