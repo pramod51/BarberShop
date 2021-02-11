@@ -1,6 +1,7 @@
 package barber.user.mybarber.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.android.volley.Request;
@@ -33,6 +35,9 @@ import barber.user.mybarber.R;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static barber.user.mybarber.UserRegestration.SHARED_PREFS;
+import static barber.user.mybarber.UserRegestration.USER_ID;
+
 public class HistoryFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -40,16 +45,16 @@ public class HistoryFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
-    Context context;
+    private TextView emptyMessage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_history, container, false);
-        context=getActivity();
         recyclerView=view.findViewById(R.id.recyclerView);
         progressBar=view.findViewById(R.id.progressbar);
         swipeRefreshLayout=view.findViewById(R.id.swipe_refresh);
+        emptyMessage=view.findViewById(R.id.message);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // get shops in shop fragment
@@ -64,13 +69,15 @@ public class HistoryFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
     private void loadHistoryAppoinments(final View view) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
-        String url = "https://mybarber.herokuapp.com/customer/api/appointment/601d7f7ea6ab7300157e90f0";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString(USER_ID, "");
+        String url = "https://mybarber.herokuapp.com/customer/api/appointment/"+userId;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -78,6 +85,7 @@ public class HistoryFragment extends Fragment {
                 try {
                     Log.d("test", response.getString("msg"));
                     JSONArray data = response.getJSONArray("data");
+                    historyItems=new ArrayList<>();
                     for(int i = 0; i < data.length(); i++)
                     {
                         JSONObject object = data.getJSONObject(i);
@@ -94,13 +102,15 @@ public class HistoryFragment extends Fragment {
                         boolean declined = object.getBoolean("declined");
 
                         //code here
-                        historyItems=new ArrayList<>();
                         historyItems.add(new HistoryItems(id,date,time,description,shopName,shopPhone,accepted,declined));
-                        mAdapter=new HistoryAdopter(historyItems,getContext());
-                        recyclerView.setAdapter(mAdapter);
-                        swipeRefreshLayout.setRefreshing(false);
 
                     }
+                    if (historyItems.size()==0)
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    mAdapter=new HistoryAdopter(historyItems,getContext(),emptyMessage);
+                    recyclerView.setAdapter(mAdapter);
+                    progressBar.setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

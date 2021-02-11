@@ -31,21 +31,13 @@
                 android:hint="Description"
                 android:textSize="16sp"/>
 
-            <RelativeLayout
+
+            <TimePicker
+                android:layout_marginTop="10dp"
+                android:id="@+id/time_picker"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TimePicker
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/time_picker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:timePickerMode="spinner"/>
-                <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
-                    android:id="@+id/datePicker"
-                    android:layout_alignParentTop="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"/>
 
 
             <com.google.android.material.button.MaterialButton

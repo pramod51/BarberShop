@@ -3,9 +3,11 @@ package barber.user.mybarber.ShopAdopter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,20 +29,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
-import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
-import barber.user.mybarber.MobileAuthentication;
 import barber.user.mybarber.R;
+
+import static barber.user.mybarber.UserRegestration.SHARED_PREFS;
+import static barber.user.mybarber.UserRegestration.USER_ID;
 
 
 public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder> {
@@ -89,45 +90,27 @@ public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder
                 View view1=LayoutInflater.from(context).inflate(R.layout.activity_bottom_popup,holder.linearLayout);
                 bottomSheetDialog.setContentView(view1);
                 bottomSheetDialog.show();
-                HorizontalPicker picker = (HorizontalPicker)view1.findViewById(R.id.datePicker);
                 Button submit=view1.findViewById(R.id.submit);
                 final TimePicker timePicker=view1.findViewById(R.id.time_picker);
+                timePicker.setIs24HourView(false);
+
                 final EditText description=view1.findViewById(R.id.description);
                 // initialize it and attach a listener
                 final String[] date = {""};
                 final String[] time = {""};
-                picker.setListener(new DatePickerListener() {
-                    @Override
-                    public void onDateSelected(DateTime dateSelected) {
-                        date[0] +=dateSelected.toString();
-                    }
-                })
-                        .setDays(20)
-                        .setOffset(10)
-                        .setDateSelectedColor(Color.DKGRAY)
-                        .setDateSelectedTextColor(Color.WHITE)
-                        .setMonthAndYearTextColor(Color.DKGRAY)
-                        .setTodayButtonTextColor(context.getResources().getColor(R.color.steel_blue))
-                        .setTodayDateTextColor(context.getResources().getColor(R.color.colorAccent))
-                        .setTodayDateBackgroundColor(Color.GRAY)
-                        .setUnselectedDayTextColor(Color.DKGRAY)
-                        .setDayOfWeekTextColor(Color.DKGRAY)
-                        .setUnselectedDayTextColor(context.getResources().getColor(R.color.gray))
-                        .showTodayButton(true)
-                        .init();
+                date[0] +=getCurrDate();
+
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //set Description,date,time
-                        final ProgressDialog dialog = new ProgressDialog(context);
-                        dialog.setMessage("please wait...");
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.show();
-                        Log.v("tag", "Selected date is " + date[0]);
+
+
+                        //Log.v("tag", "Selected date is " + date[0]);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             Log.v("tag", "Selected time is " + timePicker.getHour());
-                            time[0] =timePicker.getHour()+":"+timePicker.getMinute();
+                            time[0] =convert24To12System(timePicker.getHour(),timePicker.getMinute());
                         }
                         else {
                             Calendar c=Calendar.getInstance();
@@ -135,14 +118,30 @@ public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder
 
                         }
                         //user registration
+                        if (description.getText().toString().isEmpty()){
+                            Toast.makeText(context,"Please give some description",Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        else if (time[0].isEmpty()){
+                            Toast.makeText(context,"Please Select Time",Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+
+                        final ProgressDialog dialog = new ProgressDialog(context);
+                        dialog.setMessage("please wait...");
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
 
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-                        String url = "https://mybarber.herokuapp.com/customer/api/appointment/new/601d7f7ea6ab7300157e90f0/"+currentItem.getId();
+                        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+                        String userId = sharedPreferences.getString(USER_ID, "");
+                        String url = "https://mybarber.herokuapp.com/customer/api/appointment/new/"+userId+"/"+currentItem.getId();
 
                         JSONObject postData = new JSONObject();
                         try {
-                            postData.put("date", date);
+                            postData.put("date", date[0]);
                             postData.put("time", time[0]);
                             postData.put("description", description.getText().toString());
                         } catch (JSONException e) {
@@ -181,6 +180,30 @@ public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder
             }
 
         });
+
+    }
+    public String getCurrDate()  {
+        Date d = new Date();
+        CharSequence s  = DateFormat.format("E, dd MMM yyyy ", d.getTime());
+        return s.toString();
+    }
+    public static String convert24To12System (int hour, int minute) {
+        String time = "";
+        String am_pm = "";
+        if (hour < 12 ) {
+            if (hour == 0) hour = 12;
+            am_pm = "AM";
+        }
+        else {
+            if (hour != 12)
+                hour-=12;
+            am_pm = "PM";
+        }
+        String h = hour+"", m = minute+"";
+        if(h.length() == 1) h = "0"+h;
+        if(m.length() == 1) m = "0"+m;
+        time = h+":"+m+" "+am_pm;
+        return time;
     }
 
     @Override

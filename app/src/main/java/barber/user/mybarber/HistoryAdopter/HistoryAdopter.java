@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,14 +33,19 @@ import java.util.ArrayList;
 
 import barber.user.mybarber.R;
 
+import static barber.user.mybarber.UserRegestration.SHARED_PREFS;
+import static barber.user.mybarber.UserRegestration.USER_ID;
+
 
 public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryViewHolder> {
     private ArrayList<HistoryItems> items;
     private Context context;
+    private TextView emptyMessage;
 
-    public HistoryAdopter(ArrayList<HistoryItems> items, Context context) {
+    public HistoryAdopter(ArrayList<HistoryItems> items, Context context,TextView emptyMessage) {
         this.items = items;
         this.context = context;
+        this.emptyMessage=emptyMessage;
     }
 
     @NonNull
@@ -67,7 +73,10 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
                 dialog.show();
                 RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-                String url = "https://mybarber.herokuapp.com/customer/api/appointment/cancel/601d7f7ea6ab7300157e90f0/"+currentItems.getId();
+
+                SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString(USER_ID, "");
+                String url = "https://mybarber.herokuapp.com/customer/api/appointment/cancel/"+userId+"/"+currentItems.getId();
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -77,8 +86,12 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
 
                             // code here
                             dialog.dismiss();
+                            if (getItemCount()==1)
+                                emptyMessage.setVisibility(View.VISIBLE);
+
                             items.remove(position);
                             notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, getItemCount());
 
 
 
@@ -111,7 +124,7 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
             holder.status.setBackground(ContextCompat.getDrawable(context, R.drawable.hollw_red_circle_background));
         }else {
             holder.status.setText("Pending");
-            holder.name.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.green_dot,0);
+            holder.name.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.yellow_dot,0);
             holder.status.setBackground(ContextCompat.getDrawable(context, R.drawable.hollw_yellow_circle_background));
         }
 
@@ -131,7 +144,7 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             cancel=itemView.findViewById(R.id.cancel);
-            name=itemView.findViewById(R.id.name);
+            name=itemView.findViewById(R.id.shop_name);
             phoneNumber=itemView.findViewById(R.id.phone_number);
             date=itemView.findViewById(R.id.date);
             time=itemView.findViewById(R.id.time);

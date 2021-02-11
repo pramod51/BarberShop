@@ -3,7 +3,9 @@
    >
     <stroke android:width="2dp"
         android:color="@color/lime_green"/>
-    <gradient android:gradientRadius="2dp"/>
+    <gradient android:gradientRadius="2dp"
+        android:startColor="#C8F3C8"
+        android:endColor="#C8F3C8"/>
     <corners android:radius="20dp"/>
 
 </shape>

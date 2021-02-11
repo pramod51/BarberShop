@@ -4,17 +4,17 @@
     <item
         android:id="@+id/item0"
         android:title="Shops"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:icon="@drawable/shop"/>
 
     <item
         android:id="@+id/item1"
         android:title="History"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:icon="@drawable/history24px"/>
 
     <item
         android:id="@+id/item2"
         android:title="Profile"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:icon="@drawable/profile"/>
 
 
 </menu>
