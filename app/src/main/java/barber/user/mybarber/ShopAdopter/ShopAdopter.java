@@ -23,12 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
@@ -100,82 +94,8 @@ public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder
                 final String[] time = {""};
                 date[0] +=getCurrDate();
 
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //set Description,date,time
 
 
-                        //Log.v("tag", "Selected date is " + date[0]);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            Log.v("tag", "Selected time is " + timePicker.getHour());
-                            time[0] =convert24To12System(timePicker.getHour(),timePicker.getMinute());
-                        }
-                        else {
-                            Calendar c=Calendar.getInstance();
-                            time[0] =c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
-
-                        }
-                        //user registration
-                        if (description.getText().toString().isEmpty()){
-                            Toast.makeText(context,"Please give some description",Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        else if (time[0].isEmpty()){
-                            Toast.makeText(context,"Please Select Time",Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-
-                        final ProgressDialog dialog = new ProgressDialog(context);
-                        dialog.setMessage("please wait...");
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.show();
-
-                        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
-                        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-                        String userId = sharedPreferences.getString(USER_ID, "");
-                        String url = "https://mybarber.herokuapp.com/customer/api/appointment/new/"+userId+"/"+currentItem.getId();
-
-                        JSONObject postData = new JSONObject();
-                        try {
-                            postData.put("date", date[0]);
-                            postData.put("time", time[0]);
-                            postData.put("description", description.getText().toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    String msg = response.getString("msg");
-
-                                    // code here
-                                    dialog.dismiss();
-                                    bottomSheetDialog.dismiss();
-                                    Toast.makeText(context,"Request Successful",Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                Log.d("err", error.toString());
-                                dialog.dismiss();
-                                Toast.makeText(context,"Something went wrong! Try Again",Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                        requestQueue.add(jsonObjectRequest);
-
-                    }
-                });
 
             }
 
@@ -217,12 +137,6 @@ public class ShopAdopter extends RecyclerView.Adapter<ShopAdopter.ShopViewHolder
         private TextView shopName,phoneNumber,ownerName,address;
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
-            call=itemView.findViewById(R.id.call);
-            request=itemView.findViewById(R.id.request);
-            shopName=itemView.findViewById(R.id.shop_name);
-            phoneNumber=itemView.findViewById(R.id.phone_number);
-            address=itemView.findViewById(R.id.address);
-            ownerName=itemView.findViewById(R.id.owner_name);
             linearLayout=itemView.findViewById(R.id.bottom_popup);
 
 

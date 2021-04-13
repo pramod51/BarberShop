@@ -19,16 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import barber.user.mybarber.R;
@@ -71,45 +61,8 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
                 dialog.setMessage("please wait...");
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
-                RequestQueue requestQueue = Volley.newRequestQueue(context);
 
 
-                SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-                String userId = sharedPreferences.getString(USER_ID, "");
-                String url = "https://mybarber.herokuapp.com/customer/api/appointment/cancel/"+userId+"/"+currentItems.getId();
-
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String msg = response.getString("msg");
-
-                            // code here
-                            dialog.dismiss();
-                            if (getItemCount()==1)
-                                emptyMessage.setVisibility(View.VISIBLE);
-
-                            items.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, getItemCount());
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("err", error.toString());
-                        dialog.dismiss();
-                        Toast.makeText(context,"Something went wrong! Try Again",Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                requestQueue.add(jsonObjectRequest);
 
             }
         });
