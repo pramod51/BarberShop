@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.rilixtech.widget.countrycodepicker.Country;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class UserRegestration extends AppCompatActivity {
 

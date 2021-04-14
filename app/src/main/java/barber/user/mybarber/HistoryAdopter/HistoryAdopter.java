@@ -62,8 +62,6 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
 
-
-
             }
         });
         if (currentItems.isAccepted()){

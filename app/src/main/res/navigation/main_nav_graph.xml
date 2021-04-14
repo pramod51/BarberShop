@@ -21,9 +21,9 @@
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="barber.user.mybarber.Fragments.ProfileFragment"
+        android:name="barber.user.mybarber.Fragments.CartFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/bookingFragment"
         android:name="barber.user.mybarber.Fragments.BookingFragment"
