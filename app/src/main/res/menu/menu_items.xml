@@ -2,19 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item0"
-        android:title="Shops"
-        android:icon="@drawable/shop"/>
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="home" />
 
     <item
-        android:id="@+id/item1"
-        android:title="History"
-        android:icon="@drawable/history24px"/>
+        android:id="@+id/bookingFragment"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="Bookings" />
 
     <item
-        android:id="@+id/item2"
-        android:title="Profile"
-        android:icon="@drawable/profile"/>
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/history24px"
+        android:title="History" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile"
+        android:title="Profile" />
 
 
 </menu>

@@ -74,7 +74,7 @@ public class HistoryAdopter extends RecyclerView.Adapter<HistoryAdopter.HistoryV
         else if (currentItems.isDeclined()){
             holder.status.setText("Declined");
             holder.name.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.red_dot,0);
-            holder.status.setBackground(ContextCompat.getDrawable(context, R.drawable.hollw_red_circle_background));
+            holder.status.setBackground(ContextCompat.getDrawable(context, R.drawable.hollow_red_circle_background));
         }else {
             holder.status.setText("Pending");
             holder.name.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.yellow_dot,0);

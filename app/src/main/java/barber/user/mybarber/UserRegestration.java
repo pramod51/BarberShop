@@ -26,15 +26,18 @@ public class UserRegestration extends AppCompatActivity {
     public static final String PHONE_NO = "phone_no";
     public static final String USER_NAME = "userName";
     private Button conti;
-    private EditText userName,phoneNumber;
+    private EditText userName, phoneNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_regestration);
-        conti=findViewById(R.id.continue_button);
-        userName=findViewById(R.id.user_name);
+
+        conti = findViewById(R.id.continue_button);
+        userName = findViewById(R.id.user_name);
+        phoneNumber = findViewById(R.id.mobile_no);
+
         final CountryCodePicker ccp = (CountryCodePicker) findViewById(R.id.ccp);
-        phoneNumber=findViewById(R.id.mobile_no);
         ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected(Country selectedCountry) {
@@ -43,9 +46,8 @@ public class UserRegestration extends AppCompatActivity {
         });
 
 
-
-        
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

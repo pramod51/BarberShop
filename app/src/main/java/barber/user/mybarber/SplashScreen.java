@@ -17,19 +17,21 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         final String userId = sharedPreferences.getString(USER_ID, "");
 
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (userId.isEmpty()){
-                    Intent mainIntent = new Intent(SplashScreen.this,UserRegestration.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                }else {
-                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                }
+                Intent mainIntent;
+//                if (userId.isEmpty()) {
+//                    mainIntent = new Intent(SplashScreen.this, UserRegestration.class);
+//                } else {
+//                    mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+//                }
+                mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+                SplashScreen.this.startActivity(mainIntent);
 
                 SplashScreen.this.finish();
             }
