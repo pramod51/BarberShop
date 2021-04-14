@@ -1,15 +1,7 @@
-package barber.user.mybarber.Cart;
+package barber.user.mybarber.ShoppingAdopter;
 
-public class CartItems {
+public class ShoppingItems {
     String imageUrl,title,price;
-    String quantity;
-
-    public CartItems(String imageUrl, String title, String price, String quantity) {
-        this.imageUrl = imageUrl;
-        this.title = title;
-        this.price = price;
-        this.quantity = quantity;
-    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -35,11 +27,9 @@ public class CartItems {
         this.price = price;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public ShoppingItems(String imageUrl, String title, String price) {
+        this.imageUrl = imageUrl;
+        this.title = title;
+        this.price = price;
     }
 }
