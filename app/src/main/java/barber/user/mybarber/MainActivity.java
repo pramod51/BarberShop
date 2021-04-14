@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Passing each menu ID as a set of Ids because each menu is the top level destinations, it removes arrow sign from AppBar
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.bookingFragment, R.id.historyFragment, R.id.profileFragment)
+                R.id.homeFragment, R.id.bookingFragment, R.id.historyFragment, R.id.cartFragment, R.id.shoppingFragment)
                 .build();
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);

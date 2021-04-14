@@ -33,21 +33,21 @@ public class ShoppingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_shopping, container, false);
-        recyclerView=view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        View view = inflater.inflate(R.layout.fragment_shopping, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         FirebaseDatabase.getInstance().getReference().child("Shopping").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                shoppingItems=new ArrayList<>();
-                for (DataSnapshot ds:snapshot.child("Spray").getChildren())
-                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),ds.child("Price").getValue(String.class)));
-                for (DataSnapshot ds:snapshot.child("HairCare").getChildren())
-                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),ds.child("Price").getValue(String.class)));
-                for (DataSnapshot ds:snapshot.child("BodyCare").getChildren())
-                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),ds.child("Price").getValue(String.class)));
+                shoppingItems = new ArrayList<>();
+                for (DataSnapshot ds : snapshot.child("Spray").getChildren())
+                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
+                for (DataSnapshot ds : snapshot.child("HairCare").getChildren())
+                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
+                for (DataSnapshot ds : snapshot.child("BodyCare").getChildren())
+                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
 
-                mAdapter=new ShoppingAdopter(shoppingItems,getContext());
+                mAdapter = new ShoppingAdopter(shoppingItems, getContext());
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -59,10 +59,9 @@ public class ShoppingFragment extends Fragment {
         });
 
 
-
         view.findViewById(R.id.first).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 loadData("Spray");
             }
         });
@@ -82,17 +81,17 @@ public class ShoppingFragment extends Fragment {
         });
 
 
-
         return view;
     }
-    private void loadData(String category){
+
+    private void loadData(String category) {
         FirebaseDatabase.getInstance().getReference().child("Shopping").child(category).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                shoppingItems=new ArrayList<>();
-                for (DataSnapshot ds:snapshot.getChildren())
-                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),ds.child("Price").getValue(String.class)));
-                mAdapter=new ShoppingAdopter(shoppingItems,getContext());
+                shoppingItems = new ArrayList<>();
+                for (DataSnapshot ds : snapshot.getChildren())
+                    shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
+                mAdapter = new ShoppingAdopter(shoppingItems, getContext());
                 recyclerView.setAdapter(mAdapter);
 
             }

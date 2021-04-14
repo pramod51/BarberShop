@@ -17,9 +17,12 @@
         android:title="History" />
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/cartFragment"
         android:icon="@drawable/profile"
-        android:title="Profile" />
-
+        android:title="Cart" />
+    <item
+        android:id="@+id/shoppingFragment"
+        android:icon="@drawable/shop"
+        android:title="Shopping" />
 
 </menu>
