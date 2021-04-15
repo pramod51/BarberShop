@@ -30,17 +30,17 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        context = getContext();
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        progressBar = view.findViewById(R.id.progressbar);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
-        progressBar.setVisibility(View.VISIBLE);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        return view;
+//        // Inflate the layout for this fragment
+//        context = getContext();
+//        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+//        recyclerView = view.findViewById(R.id.recyclerView);
+//        progressBar = view.findViewById(R.id.progressbar);
+//        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+//        progressBar.setVisibility(View.VISIBLE);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }

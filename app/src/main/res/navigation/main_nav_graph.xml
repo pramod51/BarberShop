@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_selectBarberShopFragment"
             app:destination="@id/selectBarberShopFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookingFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -41,7 +53,7 @@
     <fragment
         android:id="@+id/selectBarberShopFragment"
         android:name="barber.user.mybarber.SelectBarberShopFragment"
-        android:label="fragment_select_barber_shop"
+        android:label="Select Barber Shop"
         tools:layout="@layout/fragment_select_barber_shop">
         <action
             android:id="@+id/action_selectBarberShopFragment_to_selectBarberFragment"
