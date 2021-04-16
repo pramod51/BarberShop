@@ -10,12 +10,18 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     SmoothBottomBar bottomBar;
     NavController navController;
+    NavigationView navView;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     //private AdView mAdView;
     @Override
@@ -24,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        NavigationView navView = findViewById(R.id.nav_view);
+         navView = findViewById(R.id.nav_view);
+
+         firebaseDatabase = FirebaseDatabase.getInstance();
+         databaseReference = firebaseDatabase.getReference();
 
         // Passing each menu ID as a set of Ids because each menu is the top level destinations, it removes arrow sign from AppBar
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

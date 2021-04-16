@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/shoppingFragment"
-        android:name="barber.user.mybarber.Fragments.CartFragment"
+        android:name="barber.user.mybarber.Fragments.ShoppingFragment"
         android:label="Shopping"
         tools:layout="@layout/fragment_shopping" />
     <fragment
