@@ -1,6 +1,7 @@
 package barber.user.mybarber.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,16 @@ public class ShoppingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        Log.v("tag","kya hal hai");
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         FirebaseDatabase.getInstance().getReference().child("Shopping").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 shoppingItems = new ArrayList<>();
-                for (DataSnapshot ds : snapshot.child("Spray").getChildren())
+                for (DataSnapshot ds : snapshot.child("Spray").getChildren()) {
                     shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
+
+                }
                 for (DataSnapshot ds : snapshot.child("HairCare").getChildren())
                     shoppingItems.add(new ShoppingItems(ds.child("Image").getValue(String.class), ds.child("Title").getValue(String.class), ds.child("Price").getValue(String.class)));
                 for (DataSnapshot ds : snapshot.child("BodyCare").getChildren())
