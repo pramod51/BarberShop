@@ -18,11 +18,17 @@
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Cart" />
+
     <item
         android:id="@+id/shoppingFragment"
         android:icon="@drawable/shop"
         android:title="Shopping" />
+
+    <item
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Setting" />
 
 </menu>
