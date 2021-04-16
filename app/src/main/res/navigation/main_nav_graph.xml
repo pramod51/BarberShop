@@ -71,6 +71,9 @@
             android:id="@+id/action_selectBarberFragment_to_confirmBookingFragment"
             app:destination="@id/confirmBookingFragment"
             app:launchSingleTop="false" />
+        <argument
+            android:name="barberShopNumber"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/confirmBookingFragment"

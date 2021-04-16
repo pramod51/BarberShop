@@ -69,7 +69,7 @@ public class SelectBarberShopFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 NavController selectBarberShopFragmentNavController = Navigation.findNavController(view);
-                selectBarberShopFragmentNavController.navigate(SelectBarberShopFragmentDirections.actionSelectBarberShopFragmentToSelectBarberFragment());
+                selectBarberShopFragmentNavController.navigate(SelectBarberShopFragmentDirections.actionSelectBarberShopFragmentToSelectBarberFragment(Integer.valueOf(i)));
 
             }
         });

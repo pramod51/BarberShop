@@ -8,7 +8,7 @@
 
 
     <ListView
-        android:id="@+id/select_barber"
+        android:id="@+id/select_barber_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
