@@ -3,7 +3,11 @@ package barber.user.mybarber.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -11,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import barber.user.mybarber.R;
@@ -26,6 +31,8 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
     private Context context;
+
+    Button createBookingButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,4 +50,18 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        createBookingButton = view.findViewById(R.id.create_booking);
+        createBookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController homeFragmentNavController = Navigation.findNavController(view);
+                homeFragmentNavController.navigate(HomeFragmentDirections.actionHomeFragmentToSelectBarberShopFragment());
+
+            }
+        });
+    }
 }
