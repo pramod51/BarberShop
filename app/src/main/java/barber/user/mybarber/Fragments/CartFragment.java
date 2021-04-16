@@ -45,14 +45,16 @@ public class CartFragment extends Fragment {
         recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseDatabase.getInstance().getReference().child("UserDb").child("Users").child(uId)
+        FirebaseDatabase.getInstance().getReference().child("UserDB").child("Users").child(uId)
                 .child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartItems=new ArrayList<>();
-                for (DataSnapshot ds:snapshot.getChildren())
-                cartItems.add(new CartItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),
-                        ds.child("Price").getValue(String.class),ds.child("Quantity").getValue(String.class)));
+                for (DataSnapshot ds:snapshot.getChildren()) {
+                    cartItems.add(new CartItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),
+                            ds.child("Price").getValue(String.class),ds.child("Quantity").getValue(String.class)));
+                    Log.v("tag",ds.child("Image").getValue(String.class));
+                }
 
                 mAdapter=new CartAdopter(cartItems,getContext());
                 recyclerView.setAdapter(mAdapter);
@@ -60,11 +62,18 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.v("tag",error.toString());
             }
         });
+        Log.v("tag","lekjlh");
 
-        Log.v("tag", "Kya hal h");
+
+
+
+
+
+
+
 
         return view;
     }
