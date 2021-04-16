@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/selectBarberFragment"
         android:name="barber.user.mybarber.SelectBarberFragment"
-        android:label="fragment_select_barber"
+        android:label="Select Barber"
         tools:layout="@layout/fragment_select_barber">
         <action
             android:id="@+id/action_selectBarberFragment_to_confirmBookingFragment"

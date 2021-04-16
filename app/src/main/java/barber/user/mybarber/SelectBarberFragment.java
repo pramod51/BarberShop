@@ -53,9 +53,10 @@ public class SelectBarberFragment extends Fragment {
                     String barberPhone = datasnapshot.child("PhoneNo:").getValue(String.class);
                     String barberImageUrl = datasnapshot.child("Pic:").getValue(String.class);
 
-                    Log.i("barberName",barberName);
-                    Log.i("barberPhone",barberPhone);
-                    Log.i("barberImageUrl",barberImageUrl);
+                    Log.i("barberName", barberName);
+                    Log.i("barberPhone", barberPhone);
+                    Log.i("barberImageUrl", barberImageUrl);
+                    Log.i("Dhiraj", datasnapshot.toString());
                 }
             }
 
