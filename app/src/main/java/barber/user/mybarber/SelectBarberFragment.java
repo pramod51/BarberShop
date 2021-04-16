@@ -6,15 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class SelectBarberFragment extends Fragment {
     ListView selectBarberListView;
-
+    String[] barbersNameArray;
 
     public SelectBarberFragment() {
         // Required empty public constructor
@@ -38,6 +44,26 @@ public class SelectBarberFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         selectBarberListView = view.findViewById(R.id.select_barber_listView);
 
+
+        FirebaseDatabase.getInstance().getReference().child("AdminDB").child("Shops").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot : snapshot.child("Employee").getChildren()) {
+                    String barberName = datasnapshot.child("Name:").getValue(String.class);
+                    String barberPhone = datasnapshot.child("PhoneNo:").getValue(String.class);
+                    String barberImageUrl = datasnapshot.child("Pic:").getValue(String.class);
+
+                    Log.i("barberName",barberName);
+                    Log.i("barberPhone",barberPhone);
+                    Log.i("barberImageUrl",barberImageUrl);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }

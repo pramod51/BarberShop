@@ -15,15 +15,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import barber.user.mybarber.R;
+
 import barber.user.mybarber.ShopAdopter.ShopItems;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+    ListView barberShopListView;
+    String[] values;
 
     private RecyclerView recyclerView;
     private ArrayList<ShopItems> shopItems;
@@ -33,6 +39,27 @@ public class HomeFragment extends Fragment {
     private Context context;
 
     Button createBookingButton;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        values = new String[]{"Seremban(Main Branch)\n" +
+                "\n" +
+                "Address: No 38, Jalan Dato Lee Fong Yee, Bandar Seremban, 70000 Seremban, Negeri Sembilan, Malaysia\n",
+
+
+                "Rembau\n" +
+                        "\n" +
+                        "Address: No 11, Taman Seri N.Sembilan, 381, Lorong Tsr 36, 71300 Rembau, Negeri Sembilan, Malaysia\n",
+
+
+                "Bahau\n" +
+                        "\n" +
+                        "Address: No 27, Shoplot Level 1, Kiara Square Bahau, Bahau, Jempol, Negeri Sembilan\n"
+        };
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,13 +81,19 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        createBookingButton = view.findViewById(R.id.create_booking);
-        createBookingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController homeFragmentNavController = Navigation.findNavController(view);
-                homeFragmentNavController.navigate(HomeFragmentDirections.actionHomeFragmentToSelectBarberShopFragment());
 
+
+        barberShopListView = view.findViewById(R.id.barber_shop_list_view);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        barberShopListView.setAdapter(adapter);
+
+        barberShopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NavController homeFragmentNavController = Navigation.findNavController(view);
+                homeFragmentNavController.navigate(HomeFragmentDirections.actionHomeFragmentToSelectBarberFragment(i));
             }
         });
     }
