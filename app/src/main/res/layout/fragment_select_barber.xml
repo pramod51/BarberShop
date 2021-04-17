@@ -6,9 +6,9 @@
     android:orientation="vertical"
     tools:context=".SelectBarberFragment">
 
-
     <ListView
         android:id="@+id/select_barber_listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/barber_list_items" />
 </LinearLayout>
