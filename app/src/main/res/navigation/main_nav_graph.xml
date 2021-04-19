@@ -47,8 +47,8 @@
         android:label="Bookings"
         tools:layout="@layout/fragment_booking">
         <action
-            android:id="@+id/action_bookingFragment_to_makePaymentFragment"
-            app:destination="@id/makePaymentFragment" />
+            android:id="@+id/action_bookingFragment_to_makePaymentActivity"
+            app:destination="@id/makePaymentActivity" />
     </fragment>
     <fragment
         android:id="@+id/selectBarberFragment"
@@ -69,8 +69,8 @@
         android:label="Confirm Booking"
         tools:layout="@layout/fragment_confirm_booking">
         <action
-            android:id="@+id/action_confirmBookingFragment_to_makePaymentFragment"
-            app:destination="@id/makePaymentFragment" />
+            android:id="@+id/action_confirmBookingFragment_to_makePaymentActivity"
+            app:destination="@id/makePaymentActivity" />
     </fragment>
     <fragment
         android:id="@+id/makePaymentFragment"

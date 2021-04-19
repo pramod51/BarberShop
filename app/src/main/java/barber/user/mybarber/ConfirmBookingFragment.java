@@ -45,7 +45,6 @@ public class ConfirmBookingFragment extends Fragment {
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
         confirmButton.setOnClickListener(new View.OnClickListener() {

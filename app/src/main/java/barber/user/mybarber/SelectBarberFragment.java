@@ -49,24 +49,6 @@ public class SelectBarberFragment extends Fragment {
         shopSelectedNo = args.getBarberShopSelectedNo();
         getBarberShopSelectedInString(shopSelectedNo);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_select_barber, container, false);
-
-        selectBarberListView = view.findViewById(R.id.select_barber_listView);
-        progressBar = view.findViewById(R.id.progress_bar_select_barber);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,6 +75,25 @@ public class SelectBarberFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_select_barber, container, false);
+
+        selectBarberListView = view.findViewById(R.id.select_barber_listView);
+        progressBar = view.findViewById(R.id.progress_bar_select_barber);
+
+        selectBarberListView.setAdapter(employeeCustomAdapter);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         selectBarberListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,5 +117,19 @@ public class SelectBarberFragment extends Fragment {
                 break;
         }
         databaseReference = FirebaseDatabase.getInstance().getReference().child("AdminDB").child("Shops").child(shopSelectedName);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        progressBar.setVisibility(View.GONE);
     }
 }
