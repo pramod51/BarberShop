@@ -2,16 +2,6 @@ package barber.user.mybarber.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +11,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import barber.user.mybarber.R;
-
-import barber.user.mybarber.ShopAdopter.ShopItems;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+
+import barber.user.mybarber.R;
+import barber.user.mybarber.ShopAdopter.ShopItems;
 
 public class HomeFragment extends Fragment {
     ListView barberShopListView;
@@ -48,16 +45,15 @@ public class HomeFragment extends Fragment {
                 "\n" +
                 "Address: No 38, Jalan Dato Lee Fong Yee, Bandar Seremban, 70000 Seremban, Negeri Sembilan, Malaysia\n",
 
-
                 "Rembau\n" +
                         "\n" +
                         "Address: No 11, Taman Seri N.Sembilan, 381, Lorong Tsr 36, 71300 Rembau, Negeri Sembilan, Malaysia\n",
-
 
                 "Bahau\n" +
                         "\n" +
                         "Address: No 27, Shoplot Level 1, Kiara Square Bahau, Bahau, Jempol, Negeri Sembilan\n"
         };
+
 
     }
 
@@ -74,18 +70,10 @@ public class HomeFragment extends Fragment {
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //
 //        return view;
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         barberShopListView = view.findViewById(R.id.barber_shop_list_view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
         barberShopListView.setAdapter(adapter);
 
@@ -96,5 +84,14 @@ public class HomeFragment extends Fragment {
                 homeFragmentNavController.navigate(HomeFragmentDirections.actionHomeFragmentToSelectBarberFragment(i));
             }
         });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 }

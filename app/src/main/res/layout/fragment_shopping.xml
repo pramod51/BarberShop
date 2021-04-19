@@ -28,7 +28,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="4dp"
-                android:text="aaa" />
+                android:text="Spray" />
 
             <TextView
                 android:id="@+id/second"
@@ -40,7 +40,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="4dp"
-                android:text="aaa" />
+                android:text="Hair Care" />
 
             <TextView
                 android:id="@+id/third"
@@ -52,7 +52,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="4dp"
-                android:text="aaa" />
+                android:text="Body Care" />
 
 
         </LinearLayout>

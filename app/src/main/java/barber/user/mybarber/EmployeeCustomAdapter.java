@@ -2,7 +2,6 @@ package barber.user.mybarber;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,8 +12,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static java.security.AccessController.getContext;
 
 public class EmployeeCustomAdapter extends BaseAdapter {
     Context applicationContext;
@@ -47,9 +44,9 @@ public class EmployeeCustomAdapter extends BaseAdapter {
             view = ((Activity) applicationContext).getLayoutInflater().inflate(R.layout.barber_list_items, viewGroup, false);
         }
 
-        TextView employeeName = (TextView) view.findViewById(R.id.employee_name);
-        TextView employeePhone = (TextView) view.findViewById(R.id.employee_phone);
-        ImageView employeeImage = (ImageView) view.findViewById(R.id.employee_pic);
+        TextView employeeName = view.findViewById(R.id.employee_name);
+        TextView employeePhone = view.findViewById(R.id.employee_phone);
+        ImageView employeeImage = view.findViewById(R.id.employee_pic);
 
         employeeName.setText(employeeArrayHashMap.get(i).get("barberName"));
         employeePhone.setText(employeeArrayHashMap.get(i).get("barberPhone"));

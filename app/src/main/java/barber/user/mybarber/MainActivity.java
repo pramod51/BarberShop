@@ -52,4 +52,8 @@ public class MainActivity extends AppCompatActivity {
 //        finishAffinity();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 }
