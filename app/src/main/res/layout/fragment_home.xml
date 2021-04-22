@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context="Fragments.HomeFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal">
-
 
         <TextView
             android:id="@+id/textView2"
@@ -83,12 +81,10 @@
             app:drawableTopCompat="@drawable/barbershop" />
     </LinearLayout>
 
-
     <ListView
         android:id="@+id/barber_shop_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>
 

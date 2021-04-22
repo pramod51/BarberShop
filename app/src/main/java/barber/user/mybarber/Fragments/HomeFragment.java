@@ -35,6 +35,9 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private Context context;
 
+    public String[] shopNumber;
+    public static String selectedShopNumber;
+
     Button createBookingButton;
 
     @Override
@@ -53,6 +56,8 @@ public class HomeFragment extends Fragment {
                         "\n" +
                         "Address: No 27, Shoplot Level 1, Kiara Square Bahau, Bahau, Jempol, Negeri Sembilan\n"
         };
+
+        shopNumber = new String[]{"01158919582", "0115891588", "0115891586"};
 
 
     }
@@ -80,6 +85,8 @@ public class HomeFragment extends Fragment {
         barberShopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedShopNumber = shopNumber[i];
+
                 NavController homeFragmentNavController = Navigation.findNavController(view);
                 homeFragmentNavController.navigate(HomeFragmentDirections.actionHomeFragmentToSelectBarberFragment(i));
             }
