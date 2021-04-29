@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -13,7 +16,9 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ReplacementSpan;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -23,7 +28,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MakePaymentActivity extends AppCompatActivity {
+import static barber.user.mybarber.Fragments.BarberFragment.SHARED_PREFS;
+
+public class MakePaymentActivity extends Fragment {
     public static final String KEY_STATUS = "mask";
     public static final String KEY_STATUS1 = "mask1";
     public static final String KEY_STATUS2 = "mask2";
@@ -34,17 +41,18 @@ public class MakePaymentActivity extends AppCompatActivity {
     public boolean checkView = false;
     private TextInputEditText cardNumber, cvv, expiryDate;
     private TextInputLayout cardNumberError;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_make_payment);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_make_payment, container, false);
 
-        init();
 
+        init(view);
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        totalAmount=view.findViewById(R.id.amount);
+        totalAmount.setText("RM "+sharedPreferences.getInt("totalPrice",0));
         DebitCardLayout.setVisibility(View.GONE);
-        statusDonated.setText(getIntent().getStringExtra(KEY_STATUS));
-        totalAmount.setText("₹" + getIntent().getStringExtra(KEY_STATUS1));
         debitCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -58,16 +66,7 @@ public class MakePaymentActivity extends AppCompatActivity {
 
             }
         });
-        proceedToPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validCardNumber() && checkCVV(cvv.getText().toString())) {
-                    Intent sucessed = new Intent(MakePaymentActivity.this, OtpPageActivity.class);
-                    sucessed.putExtra(KEY_STATUS2, getIntent().getStringExtra(KEY_STATUS1));
-                    startActivity(sucessed);
-                }
-            }
-        });
+
         cardNumber.addTextChangedListener(new TextWatcher() {
             private static final int TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
             private static final int TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
@@ -140,6 +139,8 @@ public class MakePaymentActivity extends AppCompatActivity {
 
             }
         });
+
+        return view;
     }
 
     private boolean validCardNumber() {
@@ -172,16 +173,16 @@ public class MakePaymentActivity extends AppCompatActivity {
         return true;
     }
 
-    private void init() {
-        proceedToPay = findViewById(R.id.proceed_to_pay);
-        debitCard = findViewById(R.id.debit_card);
-        statusDonated = findViewById(R.id.status);
-        totalAmount = findViewById(R.id.amount);
-        DebitCardLayout = findViewById(R.id.debit_card_layout);
-        cardNumber = findViewById(R.id.card_number);
-        cardNumberError = findViewById(R.id.error_card_number);
-        expiryDate = findViewById(R.id.expiry_date);
-        cvv = findViewById(R.id.cvv);
+    private void init(View view) {
+        proceedToPay = view.findViewById(R.id.proceed_to_pay);
+        debitCard = view.findViewById(R.id.debit_card);
+        statusDonated = view.findViewById(R.id.status);
+        totalAmount = view.findViewById(R.id.amount);
+        DebitCardLayout = view.findViewById(R.id.debit_card_layout);
+        cardNumber = view.findViewById(R.id.card_number);
+        cardNumberError = view.findViewById(R.id.error_card_number);
+        expiryDate = view.findViewById(R.id.expiry_date);
+        cvv = view.findViewById(R.id.cvv);
     }
 
     public class DashSpan extends ReplacementSpan {

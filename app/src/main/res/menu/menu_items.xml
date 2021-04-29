@@ -7,7 +7,7 @@
         android:title="home" />
 
     <item
-        android:id="@+id/bookingFragment"
+        android:id="@+id/startBookingFragment2"
         android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="Bookings" />
 
@@ -18,17 +18,11 @@
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:icon="@drawable/profile"
         android:title="Cart" />
 
-    <item
-        android:id="@+id/shoppingFragment"
-        android:icon="@drawable/shop"
-        android:title="Shopping" />
 
-    <item
-        android:id="@+id/settingFragment"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Setting" />
+
+
 
 </menu>

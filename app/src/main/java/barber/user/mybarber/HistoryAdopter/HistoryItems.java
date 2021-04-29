@@ -1,26 +1,23 @@
 package barber.user.mybarber.HistoryAdopter;
 
 public class HistoryItems {
-    String id, date, time, description, shopName, shopPhone;
-    boolean accepted, declined;
+    String address,date, time, name, phone,status;
 
-    public HistoryItems(String id, String date, String time, String description, String shopName, String shopPhone, boolean accepted, boolean declined) {
-        this.id = id;
+    public HistoryItems(String address, String date, String time, String name, String phone, String status) {
+        this.address = address;
         this.date = date;
         this.time = time;
-        this.description = description;
-        this.shopName = shopName;
-        this.shopPhone = shopPhone;
-        this.accepted = accepted;
-        this.declined = declined;
+        this.name = name;
+        this.phone = phone;
+        this.status = status;
     }
 
-    public String getId() {
-        return id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDate() {
@@ -39,43 +36,27 @@ public class HistoryItems {
         this.time = time;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getShopPhone() {
-        return shopPhone;
+    public String getStatus() {
+        return status;
     }
 
-    public void setShopPhone(String shopPhone) {
-        this.shopPhone = shopPhone;
-    }
-
-    public boolean isAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
-    }
-
-    public boolean isDeclined() {
-        return declined;
-    }
-
-    public void setDeclined(boolean declined) {
-        this.declined = declined;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

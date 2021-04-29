@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import static barber.user.mybarber.UserRegestration.SHARED_PREFS;
 import static barber.user.mybarber.UserRegestration.USER_ID;
 
@@ -18,19 +21,17 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        final String userId = sharedPreferences.getString(USER_ID, "");
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent mainIntent;
-//                if (userId.isEmpty()) {
-//                    mainIntent = new Intent(SplashScreen.this, UserRegestration.class);
-//                } else {
-//                    mainIntent = new Intent(SplashScreen.this, MainActivity.class);
-//                }
-                mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+                if (user==null) {
+                   mainIntent = new Intent(SplashScreen.this, EmailAuthLogIn.class);
+               } else {
+                   mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+               }
                 SplashScreen.this.startActivity(mainIntent);
 
                 SplashScreen.this.finish();

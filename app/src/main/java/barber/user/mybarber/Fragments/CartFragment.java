@@ -1,5 +1,6 @@
 package barber.user.mybarber.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,7 +38,7 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<CartItems> cartItems;
     private RecyclerView.Adapter mAdapter;
-    String uId="xyz";
+    String uId= FirebaseAuth.getInstance().getCurrentUser().getUid();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +46,10 @@ public class CartFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_cart, container, false);
         recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setTitle("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         FirebaseDatabase.getInstance().getReference().child("UserDB").child("Users").child(uId)
                 .child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -52,12 +57,13 @@ public class CartFragment extends Fragment {
                 cartItems=new ArrayList<>();
                 for (DataSnapshot ds:snapshot.getChildren()) {
                     cartItems.add(new CartItems(ds.child("Image").getValue(String.class),ds.child("Title").getValue(String.class),
-                            ds.child("Price").getValue(String.class),ds.child("Quantity").getValue(String.class)));
+                            ds.child("Price").getValue(String.class),ds.child("Quantity").getValue(String.class),ds.getKey()));
                     Log.v("tag",ds.child("Image").getValue(String.class));
                 }
 
                 mAdapter=new CartAdopter(cartItems,getContext());
                 recyclerView.setAdapter(mAdapter);
+                progressDialog.dismiss();
             }
 
             @Override

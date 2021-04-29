@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +25,7 @@ import barber.user.mybarber.R;
 public class ShoppingAdopter extends RecyclerView.Adapter<ShoppingAdopter.ViewHolder> {
     private ArrayList<ShoppingItems> items;
     private Context context;
-    private String uId="xyz";
+    String uId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public ShoppingAdopter(ArrayList<ShoppingItems> items, Context context) {
         this.items = items;

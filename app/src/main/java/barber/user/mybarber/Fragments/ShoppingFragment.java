@@ -39,7 +39,9 @@ public class ShoppingFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         Log.v("tag", "kya hal hai");
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        FirebaseDatabase.getInstance().getReference().child("Shopping").addListenerForSingleValueEvent(new ValueEventListener() {
+        if (getArguments().getString("key")!=null)
+        FirebaseDatabase.getInstance().getReference().child("AdminDB").child("Shops").child(getArguments().getString("key")).child("Shopping")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 shoppingItems = new ArrayList<>();

@@ -11,9 +11,6 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_bookingFragment"
-            app:destination="@id/bookingFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
         <action
@@ -23,8 +20,12 @@
             android:id="@+id/action_homeFragment_to_shoppingFragment"
             app:destination="@id/shoppingFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
+            android:id="@+id/action_homeFragment_to_selectBarberFragment"
+            app:destination="@id/selectBarberFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_startBookingFragment22"
+            app:destination="@id/startBookingFragment2" />
+
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -41,15 +42,6 @@
         android:name="barber.user.mybarber.Fragments.ShoppingFragment"
         android:label="Shopping"
         tools:layout="@layout/fragment_shopping" />
-    <fragment
-        android:id="@+id/bookingFragment"
-        android:name="barber.user.mybarber.Fragments.BookingFragment"
-        android:label="Bookings"
-        tools:layout="@layout/fragment_booking">
-        <action
-            android:id="@+id/action_bookingFragment_to_makePaymentActivity"
-            app:destination="@id/makePaymentActivity" />
-    </fragment>
     <fragment
         android:id="@+id/selectBarberFragment"
         android:name="barber.user.mybarber.SelectBarberFragment"
@@ -77,9 +69,13 @@
         android:name="barber.user.mybarber.MakePaymentFragment"
         android:label="fragment_make_payment"
         tools:layout="@layout/fragment_make_payment" />
+    <activity
+        android:id="@+id/makePaymentActivity"
+        android:name="barber.user.mybarber.MakePaymentActivity"
+        android:label="activity_make_payment"
+        tools:layout="@layout/activity_make_payment" />
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="barber.user.mybarber.SettingFragment"
-        android:label="Setting"
-        tools:layout="@layout/fragment_setting" />
+        android:id="@+id/startBookingFragment2"
+        android:name="barber.user.mybarber.Fragments.StartBookingFragment"
+        android:label="Make Booking" />
 </navigation>
