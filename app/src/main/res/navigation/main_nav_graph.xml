@@ -63,6 +63,12 @@
         <action
             android:id="@+id/action_confirmBookingFragment_to_makePaymentActivity"
             app:destination="@id/makePaymentActivity" />
+        <argument
+            android:name="barberShopSelectedNo"
+            app:argType="integer" />
+        <argument
+            android:name="selectedBarberName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/makePaymentFragment"

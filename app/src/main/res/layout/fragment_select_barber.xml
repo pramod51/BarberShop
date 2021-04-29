@@ -1,24 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SelectBarberFragment">
+    android:weightSum="10">
 
-    <ListView
-        android:id="@+id/select_barber_listView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/barber_list_items" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center">
 
-    <ProgressBar
-        android:id="@+id/progress_bar_select_barber"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:minWidth="100dp"
-        android:minHeight="100dp" />
+        <Button
+            android:id="@+id/btn_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SELECT DATE" />
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/in_date"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_date"
+            android:layout_toEndOf="@+id/btn_date"
+            android:layout_toRightOf="@+id/btn_date"
+            android:enabled="false"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_date"
+            android:text="SELECT TIME" />
+
+        <EditText
+            android:id="@+id/in_time"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_time"
+            android:layout_toEndOf="@+id/btn_time"
+            android:layout_toRightOf="@+id/btn_time"
+            android:enabled="false"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        tools:context=".SelectBarberFragment">
+
+        <ListView
+            android:id="@+id/select_barber_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/barber_list_items" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_select_barber"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minWidth="100dp"
+            android:minHeight="100dp" />
+
+        <Button
+            android:id="@+id/select_automatically_barber_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="Select Automatically" />
+    </FrameLayout>
+
+</LinearLayout>

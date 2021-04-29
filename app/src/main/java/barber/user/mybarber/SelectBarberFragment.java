@@ -1,12 +1,19 @@
 package barber.user.mybarber;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
-
-import barber.user.mybarber.Fragments.HomeFragmentDirections;
 
 
 public class SelectBarberFragment extends Fragment {
@@ -34,6 +40,13 @@ public class SelectBarberFragment extends Fragment {
     DatabaseReference databaseReference;
     ProgressBar progressBar;
     EmployeeCustomAdapter employeeCustomAdapter;
+    Button selectAutomaticallyBarberButton;
+    Button btnDatePicker, btnTimePicker;
+    EditText txtDate, txtTime;
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
+    public static String dateSelected;
+    public static String timeSelected;
 
     public SelectBarberFragment() {
         // Required empty public constructor
@@ -45,6 +58,7 @@ public class SelectBarberFragment extends Fragment {
 
         employeeArrayHashMap = new ArrayList<>();
 
+        assert getArguments() != null;
         SelectBarberFragmentArgs args = SelectBarberFragmentArgs.fromBundle(getArguments());
         shopSelectedNo = args.getBarberShopSelectedNo();
         getBarberShopSelectedInString(shopSelectedNo);
@@ -57,7 +71,7 @@ public class SelectBarberFragment extends Fragment {
                     String barberPhone = datasnapshot.child("PhoneNo").getValue(String.class);
                     String barberImageUrl = datasnapshot.child("Pic").getValue(String.class);
 
-                    HashMap<String, String> hashMap = new HashMap();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("barberName", barberName);
                     hashMap.put("barberPhone", barberPhone);
                     hashMap.put("barberImageUrl", barberImageUrl);
@@ -85,8 +99,14 @@ public class SelectBarberFragment extends Fragment {
 
         selectBarberListView = view.findViewById(R.id.select_barber_listView);
         progressBar = view.findViewById(R.id.progress_bar_select_barber);
+        selectAutomaticallyBarberButton = view.findViewById(R.id.select_automatically_barber_button);
 
         selectBarberListView.setAdapter(employeeCustomAdapter);
+
+        btnDatePicker = view.findViewById(R.id.btn_date);
+        btnTimePicker = view.findViewById(R.id.btn_time);
+        txtDate = view.findViewById(R.id.in_date);
+        txtTime = view.findViewById(R.id.in_time);
 
         return view;
     }
@@ -95,11 +115,60 @@ public class SelectBarberFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        NavController selectBarberFragmentNavController = Navigation.findNavController(view);
+
         selectBarberListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                NavController selectBarberFragmentNavController = Navigation.findNavController(view);
-                selectBarberFragmentNavController.navigate(SelectBarberFragmentDirections.actionSelectBarberFragmentToConfirmBookingFragment());
+                selectBarberFragmentNavController.navigate(SelectBarberFragmentDirections.actionSelectBarberFragmentToConfirmBookingFragment(shopSelectedNo, employeeArrayHashMap.get(i).get("barberName")));
+
+            }
+        });
+
+        selectAutomaticallyBarberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectBarberFragmentNavController.navigate(SelectBarberFragmentDirections.actionSelectBarberFragmentToConfirmBookingFragment(shopSelectedNo, employeeArrayHashMap.get(0).get("barberName")));
+
+            }
+        });
+
+        btnDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        dateSelected = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        txtDate.setText(dateSelected);
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
+        btnTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Time
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        timeSelected = hourOfDay + ":" + minute;
+                        txtTime.setText(timeSelected);
+                    }
+                }, mHour, mMinute, false);
+                timePickerDialog.show();
             }
         });
     }
